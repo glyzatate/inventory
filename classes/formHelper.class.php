@@ -137,23 +137,18 @@ EOF;
 EOF;
 	}
 	
-	function date_picker($name, $value="", $attributes=""){
-		if($this->editable)
-			echo <<<EOF
-			<script>
-			  $(function() {
-			    $( "#datepicker" ).datepicker();
-			  });
-			</script>
-		<input type="text" name="$name" value="$value" id="datepicker" $attributes />
+	function date_picker($name, $value="", $attributes="", $label="", $placeholder="", $required=FALSE){
+		$required = $required? "has-warning" : "";
+		$placeholder = empty($placeholder)? $label : $placeholder;
+		$read_only = $this->editable? "":"readonly";
+		echo <<<EOF
+		<div class="form-group $required">
+            <label for="date_picker" class="col-lg-2 control-label">$label</label>
+            <div class="col-lg-10">
+				<input $read_only type="text" name="$name" value="$value" Placeholder="$placeholder" $attributes />
+			</div>
+		</div>
 EOF;
-		else{
-			$dateformat = strtotime($value);
-			if($dateformat === FALSE || $value == "0000-00-00")
-				echo "<span $attributes>Date Not Defined.</span>";
-			else
-				echo "<span $attributes>".date('M. j, Y',$dateformat)."</span>";
-		}
 	}
 	
 	function button($name, $value, $attributes="", $type="submit", $url = ""){
@@ -164,9 +159,9 @@ EOF;
 			}
 		echo <<<EOF
 		<div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">$label</label>
+            <label for="button" class="col-lg-2 control-label">$label</label>
             <div class="col-lg-10">
-				$link<button type="$type" name="$name" $attributes ><strong style="font-size: 2em;">$value</strong></button>$end_link
+				$link<button type="$type" name="$name" $attributes >$value</button>$end_link
 			</div>
 		</div>
 EOF;
@@ -205,7 +200,33 @@ EOF;
 EOF;
 	}
 	
-	function radio($name, $value, $attributes = "", $default = ""){
+	function radio($name, $value, $label = "",$attributes = "", $default = ""){
+		$radio = "";
+		if(is_array($value)){
+			foreach($value AS $k => $v){
+				$checked = ($k === $default)? "checked" : "";
+				$radio .= "<div $attributes><input type='radio' name='$name' value='$k' $checked> $v</div>";
+			}
+		}
+		else{
+			$checked = ($value === $default)? "checked" : "";
+			$radio .= "<div $attributes><input type='radio' name='$name' value='$value' $checked> $value</div>";
+		}
+		if($this->editable){
+			echo '
+			<div class="form-group">
+            	<label for="radio" class="col-lg-2 control-label">'.$label.'</label>
+                <div class="col-lg-10">					
+					'.$radio.'
+				</div>
+			</div>';
+		}
+		else{
+			echo "<div $attributes>$default</div>";
+		}
+	}
+	
+	/* function radio($name, $value, $attributes = "", $default = ""){
 		$radio = "";
 		if(is_array($value)){
 			foreach($value AS $k => $v){
@@ -223,7 +244,7 @@ EOF;
 		else{
 			echo "<div $attributes>$default</div>";
 		}
-	}
+	} */
 	
 	function google_recaptcha(){
 		if($this->editable){

@@ -36,7 +36,7 @@ private $db;
 			$f = $field;
 		}
 		$sql = "SELECT $f FROM $table $add_sql WHERE $where";
-		//echo $sql;
+		//echo $sql.'<br/><br/>';
 		//exit();
 		$this->executeQuery($sql);
 		if(is_array($field) && count($field) == 1)
@@ -69,7 +69,7 @@ private $db;
 	
 	function insertQuery($table, $array){
 		$sql = "INSERT INTO $table";
-		$xquery = array();
+		$xquery = array(); 
 		foreach($array AS $k => $v){
 			if(!empty($v)){
 				$col .= "`$k`, ";
@@ -110,7 +110,7 @@ private $db;
 					$xquery[":$k"] = "$v";
 				}
 		}
-		$sql .= substr($col,0,-1)." WHERE $where";
+		$sql .= substr($col,0,-1)." WHERE $where"; //echo $sql.'<br/>';
 		if(empty($array)){
 			return FALSE;
 		}

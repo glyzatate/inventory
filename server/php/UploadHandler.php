@@ -40,8 +40,9 @@ class UploadHandler
             'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
             'upload_url' => $this->get_full_url().'/files/',
             'user_dirs' => false,
-            'mkdir_mode' => 0755,
+            'mkdir_mode' => 0777,
             'param_name' => 'files',
+            'newFilename' => null,
             // Set the following option to 'POST', if your server does not support
             // DELETE requests. This is a parameter sent to the client:
             'delete_type' => 'DELETE',
@@ -90,39 +91,9 @@ class UploadHandler
             'discard_aborted_uploads' => true,
             // Set to false to disable rotating images based on EXIF meta data:
             'orient_image' => true,
-            'image_versions' => array(
-                // Uncomment the following version to restrict the size of
-                // uploaded images:
-                '' => array(
-                    'max_width' => 400,
-                    'max_height' => 300,
-                    'jpeg_quality' => 90
-                ),
-                // Uncomment the following to create medium sized images:
-                /*
-                'medium' => array(
-                    'max_width' => 800,
-                    'max_height' => 600,
-                    'jpeg_quality' => 80
-                ),
-                */
-                'thumbnail' => array(
-                    // Uncomment the following to use a defined directory for the thumbnails
-                    // instead of a subdirectory based on the version identifier.
-                    // Make sure that this directory doesn't allow execution of files if you
-                    // don't pose any restrictions on the type of uploaded files, e.g. by
-                    // copying the .htaccess file from the files directory for Apache:
-                    //'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/thumb/',
-                    //'upload_url' => $this->get_full_url().'/thumb/',
-                    // Uncomment the following to force the max
-                    // dimensions and e.g. create square thumbnails:
-                    //'crop' => true,
-                    'max_width' => 80,
-                    'max_height' => 60
-                )
-            )
+            'image_versions' => array()
         );
-        if ($options) {
+        if ($options) { 
             $this->options = array_merge($this->options, $options);
         }
         if ($error_messages) {
@@ -510,25 +481,29 @@ class UploadHandler
     }
 
     protected function trim_file_name($name,
-            $type = null, $index = null, $content_range = null) {
+        $type = null, $index = null, $content_range = null) {
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $name = trim(basename(stripslashes($name)), ".\x00..\x20");
+		$name = trim(basename(stripslashes($name)), ".\x00..\x20");
         // Use a timestamp for empty filenames:
         if (!$name) {
             $name = str_replace('.', '-', microtime(true));
         }
         // Add missing file extension for known image types:
-        if (strpos($name, '.') === false &&
+        /* if (strpos($name, '.') === false &&
             preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
             $name .= '.'.$matches[1];
-        }
+        }  */
+		
         return $name;
     }
 
-    protected function get_file_name($name,
-            $type = null, $index = null, $content_range = null) {
+    protected function get_file_name($name, $type = null, $index = null, $content_range = null) {
+		if( $this->options['newFilename'] != NULL){
+			$n2 = array_reverse( explode('.', $name ) );
+			$name = $this->options['newFilename'].'.'.$n2[0];
+		}
         return $this->get_unique_filename(
             $this->trim_file_name($name, $type, $index, $content_range),
             $type,
@@ -678,7 +653,7 @@ class UploadHandler
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
         $file = new stdClass();
-        $file->name = $this->get_file_name($name, $type, $index, $content_range);
+		$file->name = $this->get_file_name($name, $type, $index, $content_range);
         $file->size = $this->fix_integer_overflow(intval($size));
         $file->type = $type;
         if ($this->validate($uploaded_file, $file, $error, $index)) {

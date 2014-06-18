@@ -5,13 +5,6 @@ function pre($arr){
 	echo "</pre>";
 }
 
-function is_admin(){
-	if($_SESSION['level']==1)
-		return TRUE;
-	else
-		return FALSE;
-}
-
 function get_error(){
 	global $error, $update;
 	if(is_array($error) && sizeof($error) > 0){
@@ -34,6 +27,20 @@ function get_error(){
 		$update_msg = "<div class='success'><p>$update</p></div>";
 	}
 	return $error_msg.$update_msg;
+}
+
+function is_login(){
+	if(!empty($_SESSION['u']) && !empty($_SESSION['uid'])){
+		return TRUE;
+	}	
+	else{
+		return FALSE;
+	}
+}
+
+
+function get_pt_username(){
+	return $_SESSION['u'];
 }
 
 function nicetime($date)
@@ -90,21 +97,12 @@ function get_profile_pic($uid, $name="", $full_image=FALSE){
 	}
 }
 
-function get_uploaded_file_icon($dir,$size=NULL){
-	$size = is_null($size)? "" : "_".$size;
-	$file = get_file($dir);
-	if($file && sizeof($file) != 0 && !empty($file[0])){
-		return "<a href='$dir/{$file[0]}'><img src='img/attach_document$size.png'></a>";
-	}
-	return "&nbsp;";
-}
-
 function get_file($dir){
 	if(is_dir($dir)){
 		$files = array();
 		$content  = opendir($dir);
 		while (false !== ($file = readdir($content))) {
-			if($file === "." || $file === ".." || strpos($file, ".") === FALSE)
+			if($file === "." || $file === "..")
 				continue;
 		    $files[] = $file;
 		}
@@ -115,28 +113,7 @@ function get_file($dir){
 	}
 }
 
-function is_good_email($email, $id=NULL){
-	global $db;
-	if(!is_null($id)){
-		$filter = "AND id<>$id";
-	}
-	$email = trim($email);
-	if(empty($email)){
-		return "Email empty.";
-	}
-	else{
-		$count = $db->selectSingleQuery("applicants", "COUNT(email)", "email = '{$email}' $filter");
-		if($count > 0){
-			return "Email already exist.";
-		}
-		else if(filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE){
-			return "Invalid Email.";
-		}
-	}
-	return TRUE;
-}
-
-function get_ajax_loader($element, $image='img/loading.gif'){
+function get_ajax_loader($element, $image='images/logo.jpg'){
 	if(!empty($image)){
 		$img = "<img src='$image' /> ";
 	}
@@ -145,18 +122,61 @@ function get_ajax_loader($element, $image='img/loading.gif'){
 EOF;
 }
 
-function checkDuplicateApplicant($fname, $lname, $bdate) {		
-	global $db;
-	$where = "fname like '%".$fname."%' AND lname like '%".$lname."%' AND bdate = '".$bdate."'";
-	$querythis = $db->selectSingleQuery("applicants", "DATE(date_created)" ,$where);	
-	$try = strtotime("+3 months",strtotime($querythis));		
-	$validDate = date("Y-m-d",$try);		
-	$today = date("Y-m-d");		
-	if($validDate > $today)		
-		return "<b>
-		We have received your application last ".ucfirst(date("F d, Y",strtotime($querythis))).". <br/>
-		You still have pending application, you may re-apply on ".ucfirst(date("F d, Y",strtotime($validDate)))." and onwards.</b>";
-	return TRUE;
-			
+
+function sendEmail( $from, $to, $subject, $body, $fromName='' ){
+	$url = 'http://www.tatepublishing.net/pt/api.php?method=sendGenericEmail';
+      /*
+       * from = sender's email
+       * fromName = sender's name
+       * BCC = cc's
+       * replyTo = reply to email address
+       * sendTo = recipient email address
+       * subject = email subject
+       * body = email body
+       */
+     
+	
+	 //$subject = $subject.' to-'.$to;
+	  //$to = 'lmarinas@tatepublishing.com';
+   $fields = array(
+    'from' => $from,
+    'sendTo' => $to,
+    'subject' => $subject,
+    'body' => $body,
+   );
+   
+   if( !empty($fromName) ){
+	$fields['fromName'] = $fromName;
+   }
+   //build the urlencoded data
+   $postvars='';
+   $sep='';
+   foreach($fields as $key=>$value) { 
+       $postvars.= $sep.urlencode($key).'='.urlencode($value); 
+       $sep='&'; 
+   }
+   //open connection
+   $ch = curl_init();
+   //set the url, number of POST vars, POST data
+   curl_setopt($ch,CURLOPT_URL,$url);
+   curl_setopt($ch,CURLOPT_POST,count($fields));
+   curl_setopt($ch,CURLOPT_POSTFIELDS,$postvars);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+   //execute post
+   $result = curl_exec($ch);
+   //close connection
+   curl_close($ch);
 }
+
+
+function add_notification($userID_fk, $content){
+	global $db;
+	$insertArray = array(
+		"userID_fk" => $userID_fk,
+		"content" => $content
+	);
+	$db->insertQuery('notifications', $insertArray);
+}
+
+
 ?>
