@@ -7,11 +7,10 @@ date_default_timezone_set('Asia/Singapore');
 function __autoload($class_name){
 	require_once 'classes/'.$class_name.'.class.php';
 }
-
 $dbname="inventory_tate";
 $user="root";
+// $pass="";
 $pass="seabiscuit";
-// $pass="seabiscuit";
 // $host="localhost";
 $host="129.3.252.99";
 $db = new database($dbname, $user, $pass, $host);
