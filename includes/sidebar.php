@@ -50,8 +50,16 @@
 
 <table cellspacing="100" border="0">
 	<tr >
-		<td  style="padding:5px"><a href="#" class="classname"><img src="img/home.png" style="width:50px; height:50px;" /></a></td>
+		<td  style="padding:5px"><a href="index.php" class="classname"><img src="img/home.png" style="width:50px; height:50px;" /></a></td>
 		<td  style="padding:5px"><a href="#" class="classname"><img src="img/settings.png" style="width:50px; height:50px;" /></a></td></a></td>
+	</tr>
+	<tr>
+		<td style="padding:5px"><a href="addinventory.php" class="classname"><img src="img/compset.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="#" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
+	</tr>
+	<tr>
+		<td style="padding:5px"><a href="#" class="classname"><img src="img/laptop.png" style="width:50px; height:50px;" /></a></td></a></td>		
+		<td style="padding:5px"><a href="#" class="classname"><img src="img/mac.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	<tr >
 		<td  style="padding:5px"><a href="mouse.php" class="classname"><img src="img/mouse.png" style="width:50px; height:50px;" /></a></td>
@@ -65,10 +73,7 @@
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/headset.png" style="width:50px; height:50px;" /></a></td></a></td>
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/hardphone.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
-	<tr>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/laptop.png" style="width:50px; height:50px;" /></a></td></a></td>		
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/mac.png" style="width:50px; height:50px;" /></a></td></a></td>
-	</tr>
+	
 	<tr>
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/tablet.png" style="width:50px; height:50px;" /></a></td></a></td>
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/avr.png" style="width:50px; height:50px;" /></a></td></a></td>
@@ -77,8 +82,8 @@
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/ups.png" style="width:50px; height:50px;" /></a></td></a></td>
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/printer.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
-
-	</table>
+	
+</table>
 
 
 </div>
