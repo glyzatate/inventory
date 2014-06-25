@@ -63,24 +63,24 @@
 	</tr>
 	<tr >
 		<td  style="padding:5px"><a href="mouse.php" class="classname"><img src="img/mouse.png" style="width:50px; height:50px;" /></a></td>
-		<td  style="padding:5px"><a href="#" class="classname"><img src="img/keyboard.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td  style="padding:5px"><a href="keyboard.php" class="classname"><img src="img/keyboard.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	<tr>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/monitor.png" style="width:50px; height:50px;" /></a></td></a></td>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/cpu.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="monitor.php" class="classname"><img src="img/monitor.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="cpu.php" class="classname"><img src="img/cpu.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	<tr>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/headset.png" style="width:50px; height:50px;" /></a></td></a></td>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/hardphone.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="headset.php" class="classname"><img src="img/headset.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="hardphone.php" class="classname"><img src="img/hardphone.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	
 	<tr>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/tablet.png" style="width:50px; height:50px;" /></a></td></a></td>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/avr.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="tablet.php" class="classname"><img src="img/tablet.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="avr.php" class="classname"><img src="img/avr.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	<tr>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/ups.png" style="width:50px; height:50px;" /></a></td></a></td>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/printer.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="ups.php" class="classname"><img src="img/ups.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<td style="padding:5px"><a href="printer.php" class="classname"><img src="img/printer.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	
 </table>
