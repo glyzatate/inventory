@@ -68,6 +68,7 @@ private $db;
 	}
 	
 	function insertQuery($table, $array){
+		// print_r($array);
 		$sql = "INSERT INTO $table";
 		$xquery = array(); 
 		foreach($array AS $k => $v){
