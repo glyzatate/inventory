@@ -1,4 +1,5 @@
 <?php 
+
 $css = array('jquery-ui/jquery-ui.css');
 require 'includes/header.php';
 
@@ -9,13 +10,15 @@ if(!is_login()){
 	echo '<p>Welcome <b>'.$user->getFullName().' </b>!</p>';		
 	?>
 	
-	<input type="submit" value="Add Mouse" /> <br/><hr>
+	<a href="addmouse.php" ><input type="submit" value="Add Mouse" /> </a><br/><hr>
+	<h1>Mouse</h1><hr>
 	<table border="1" width="750px">
 		<tr align="center">
-			<th width="25%">Invoice No.</th>
-			<th width="25%">Mouse Brand</th>
-			<th width="25%">Mouse Model</th>
-			<th width="25%">Mouse Serial</th>
+			<th width='100px'>Mouse Label</th>
+			<th width='100px'>Invoice No.</th>
+			<th width='100px'>Mouse Brand</th>
+			<th width='100px'>Mouse Model</th>
+			<th width='100px'>Mouse Serial</th>
 		</tr>
 	</table>	
 	<div style="overflow:auto;height:600px;">
@@ -23,12 +26,12 @@ if(!is_login()){
 		<?php 
 			$mouse = $db->selectQuery("mouse","*", "1");			
 			foreach( $mouse AS $c ):
-				echo '<tr >';
-				// echo "<td> </td>";
-				echo "<td width='25.2%'>".$c['mouse_brand']."</td>";
-				echo "<td>".$c['mouse_brand']."</td>";
-				echo "<td>".$c['mouse_model']."</td>";
-				echo "<td>".$c['mouse_serial']."</td>";
+				echo '<tr >';				
+				echo "<td width='100px'>".$c['mouse_label']."</td>";
+				echo "<td width='100px'>".$c['mouse_invoiceno']."</td>";
+				echo "<td width='100px'>".$c['mouse_brand']."</td>";
+				echo "<td width='100px'>".$c['mouse_model']."</td>";
+				echo "<td width='100px'>".$c['mouse_serial']."</td>";
 				echo '</tr>';				
 			endforeach;
 		?>				

@@ -5,6 +5,7 @@ require 'config.php';
 $err = false;
 if( !empty($_POST) ){
 	$insertArr_mouse = array();
+	$insertArr_mouse['mouse_label'] = $_POST['mouse_label'];
 	$insertArr_mouse['mouse_brand'] = $_POST['mouse_brand'];
 	$insertArr_mouse['mouse_model'] = $_POST['mouse_model'];
 	$insertArr_mouse['mouse_serial'] = $_POST['mouse_serial'];
@@ -128,6 +129,7 @@ if(!is_login()){
 			</tr>	
 			<tr>
 				<td>Mouse</td>
+				<td><input type="text" name="mouse_label" id="mouse_label" placeholder="Label" /></td>
 				<td><input type="text" name="mouse_brand" id="mouse_brand" placeholder="Brand" /></td>
 				<td><input type="text" name="mouse_model" id="mouse_model" placeholder="Model"/></td>
 				<td><input type="text" name="mouse_serial" id="mouse_serial" placeholder="Serial"/></td>

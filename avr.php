@@ -8,7 +8,8 @@ if(!is_login()){
 }else{
 	echo '<p>Welcome <b>'.$user->getFullName().' </b>!</p>';		
 	?>
-	<input type="submit" value="Add Avr" /> <br/><hr>
+	<!--<input type="submit" value="Add Avr" /> <br/><hr>-->
+	<h1>Avr</h1><hr>
 	<table border="1" width="750px">
 		<tr align="center">
 			<th width="25%">Invoice No.</th>

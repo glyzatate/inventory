@@ -55,7 +55,7 @@
 	</tr>
 	<tr>
 		<td style="padding:5px"><a href="addinventory.php" class="classname"><img src="img/compset.png" style="width:50px; height:50px;" /></a></td></a></td>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
+		<td style="padding:5px"><a href="assignment.php" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
 	</tr>
 	<tr>
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/laptop.png" style="width:50px; height:50px;" /></a></td></a></td>		
