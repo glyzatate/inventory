@@ -39,8 +39,15 @@ if(!is_login()){
 	
 	
 	?>
-	
-<h1>Assign to Table</h1><hr>
+<hr>
+<table border="0" width="25%">
+		<tr align="center">
+			<td ><a href="#adminroom" >View Active List </a></td>
+			<td>|</td>
+			<td ><a href="#callroom" >Inactive List</a></td>			
+		</tr>
+	</table>	
+<hr>
 <form action="" name="" method="POST">
 		<table border="0" cellpadding="3" cellspacing="3">		
 			<tr>
@@ -72,8 +79,9 @@ if(!is_login()){
 					<label>Avr</label>
 				</td>
 				<td>
-					<?php 
-						$staff = $db->selectQuery("avr","*", "1 AND avr_is_assign = 0 ORDER BY avr_id");			
+					<?php 												
+						// $staff = $db->selectQuery("avr","*","avr_id not IN(Select assign_avrid from `assignments`)  ORDER BY avr_id");			
+						$staff = $db->selectQuery("avr","*","avr_id not IN(Select assign_avrid from `assignments` where assign_avrid <> 0)  ORDER BY avr_id");			
 						echo '<select name="avr_id" style="width:200px;">';			
 						echo "<option ></option>";						
 						foreach( $staff AS $c ):						
@@ -89,7 +97,8 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("cpu","*", "1 AND cpu_is_assign = 0 ORDER BY cpu_id");			
+						
+						$staff = $db->selectQuery("cpu","*", "cpu_id not IN(Select assign_cpuid from `assignments` where assign_cpuid <> 0)  ORDER BY cpu_id");			
 						echo '<select name="cpu_id" style="width:200px;">';				
 						echo "<option ></option>";						
 						foreach( $staff AS $c ):							
@@ -105,7 +114,7 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("hardphone","*", "1 AND hardphone_is_assign = 0 ORDER BY hardphone_id");			
+						$staff = $db->selectQuery("hardphone","*", "hardphone_id not IN(Select assign_hardphoneid from `assignments`  where assign_hardphoneid <> 0)  ORDER BY hardphone_id");			
 						echo '<select name="hardphone_id" style="width:200px;">';					
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -121,7 +130,7 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("headset","*", "1 AND headset_is_assign = 0 ORDER BY headset_id");			
+						$staff = $db->selectQuery("headset","*", "headset_id not IN(Select assign_headsetid from `assignments` where assign_headsetid <> 0) ORDER BY headset_id");			
 						echo '<select name="headset_id" style="width:200px;">';					
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -137,7 +146,7 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("keyboard","*", "1 AND keyboard_is_assign = 0 ORDER BY keyboard_id");			
+						$staff = $db->selectQuery("keyboard","*", "keyboard_id not IN(Select assign_keyboardid from `assignments` where assign_keyboardid <> 0)  ORDER BY keyboard_id");			
 						echo '<select name="keyboard_id" style="width:200px;">';				
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -153,7 +162,7 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("monitor","*", "1 AND monitor_is_assign = 0 ORDER BY monitor_id");			
+						$staff = $db->selectQuery("monitor","*", "monitor_id not IN(Select assign_monitorid from `assignments` where assign_monitorid <> 0)  ORDER BY monitor_id");			
 						echo '<select name="monitor_id" style="width:200px;">';						
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -169,7 +178,7 @@ if(!is_login()){
 					</td>
 					<td>
 						<?php 
-						$staff = $db->selectQuery("mouse","*", "1 AND mouse_is_assign = 0 ORDER BY mouse_id");			
+						$staff = $db->selectQuery("mouse","*", "mouse_id not IN(Select assign_mouseid from `assignments` where assign_mouseid <> 0) ORDER BY mouse_id");			
 						echo '<select name="mouse_id" style="width:200px;">';						
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -185,7 +194,7 @@ if(!is_login()){
 				</td>
 				<td>
 						<?php 
-						$staff = $db->selectQuery("printer","*", "1 AND printer_is_assign = 0 ORDER BY printer_id");			
+						$staff = $db->selectQuery("printer","*", "printer_id not IN(Select assign_printerid from `assignments`  where assign_printerid <> 0)  ORDER BY printer_id");			
 						echo '<select name="printer_id" style="width:200px;">';					
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -201,7 +210,7 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("tablet","*", "1 AND tablet_is_assign = 0 ORDER BY tablet_id");			
+						$staff = $db->selectQuery("tablet","*", "tablet_id not IN(Select assign_tabletid from `assignments` where assign_tabletid <> 0) ORDER BY tablet_id");			
 						echo '<select name="tablet_id" style="width:200px;">';						
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							
@@ -217,7 +226,7 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("ups","*", "1 AND ups_is_assign = 0 ORDER BY ups_id");			
+						$staff = $db->selectQuery("ups","*", "ups_id not IN(Select assign_upsid from `assignments` where assign_upsid <> 0) ORDER BY ups_id");			
 						echo '<select name="ups_id" style="width:200px;">';				
 						echo "<option ></option>";
 						foreach( $staff AS $c ):							

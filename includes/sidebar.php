@@ -82,7 +82,10 @@
 		<td style="padding:5px"><a href="ups.php" class="classname"><img src="img/ups.png" style="width:50px; height:50px;" /></a></td></a></td>
 		<td style="padding:5px"><a href="printer.php" class="classname"><img src="img/printer.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
-	
+	<tr>
+		<td style="padding:5px"></td>
+		<td style="padding:5px"><a href="assignment2.php" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
+	</tr>
 </table>
 
 
