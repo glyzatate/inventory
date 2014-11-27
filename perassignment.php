@@ -23,6 +23,7 @@ if( !empty($_POST) ){
 		$invoiceId = $db->insertQuery('assignments', $insertArr_invoice);  
 	
 	
+	
 	if( $id ){
 		echo "<script> parent.$.fn.colorbox.close(); parent.window.location.reload();  </script>";
 	}else{
@@ -64,11 +65,11 @@ if(!is_login()){
 				</td>
 				<td>
 					<?php 
-						$staff = $db->selectQuery("users","*", "1 ORDER BY firstName");			
+						$staff = $db->selectQuery("staff","*", "1 ORDER BY sLast");			
 						echo '<select name="user_id" style="width:200px;">';
 						echo "<option ></option>";
 						foreach( $staff AS $c ):						
-							echo "<option value=".$c['userID'].">".$c['firstName']." ".$c['lastName']."</option>";													
+							echo "<option value=".$c['uid'].">".$c['sLast']." ".$c['sFirst']."</option>";													
 						endforeach;
 						echo '</select>';				
 					?>				

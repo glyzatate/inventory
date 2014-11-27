@@ -9,21 +9,19 @@ if(!is_login()){
 	echo '<p>Welcome <b>'.$user->getFullName().' </b>!</p>';		
 ?>
 <hr>
-<table border="0" width="25%">
-		<tr align="center">
-			<td ><a href="#adminroom" >View Active List </a></td>
-			<td>|</td>
-			<td ><a href="#callroom" >Inactive List</a></td>			
-		</tr>
-	</table>	
-<hr>
 
 <?php  
 $details = $db->selectQuery("users","", $where,$addON);				
 
 ?>
 
-
+<?php
+$uid = $_GET['userid'];
+$where = "uid =".$uid;
+// $emp = $db->selectSingleQuery("staff",'contact(sLast,",",sFirst) as name', $where, $add_sql="");
+$emp = $db->selectSingleQuery("staff",'CONCAT( sLast,", ", sFirst )', $where,"");
+echo '<h4>'.$emp.'</h4>';
+?>
 	<table border="1" >
 		<tr align="center">
 			<th width='200px'>Time Stamp</th>			
@@ -44,7 +42,7 @@ $details = $db->selectQuery("users","", $where,$addON);
 
 		<?php 
 		$addON = "LEFT JOIN users ON  userID= assign_userid LEFT JOIN avr ON  avr_id = assign_avrid LEFT  JOIN ups ON  ups_id = assign_upsid LEFT  JOIN monitor ON  monitor_id = assign_monitorid  LEFT  JOIN cpu ON  cpu_id = assign_cpuid LEFT  JOIN keyboard ON  keyboard_id = assign_keyboardid LEFT  JOIN mouse ON  mouse_id = assign_mouseid LEFT  JOIN hardphone ON  hardphone_id = assign_hardphoneid LEFT  JOIN headset ON  headset_id = assign_headsetid  LEFT  JOIN printer ON  printer_id = assign_printerid LEFT  JOIN tablet ON  tablet_id = assign_tabletid ";
-		$where = "assign_userid = ".$_GET['userid'];
+		$where = "assign_userid = ".$uid;
 		$fields = "assign_timestamp,assign_userid,lastName,firstName,table_no,monitor_label,cpu_label, keyboard_label, mouse_label,avr_label, hardphone_label,headset_label, printer_brand,tablet_label,assign_chair";
 		$details = $db->selectQuery("assignments",$fields, $where,$addON);				
 			foreach( $details AS $detail ):

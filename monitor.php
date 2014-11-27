@@ -12,23 +12,33 @@ if(!is_login()){
 	<h1>Monitor</h1><hr>
 	<table border="1" width="750px">
 		<tr align="center">
-			<th width="25%">Invoice No.</th>
-			<th width="25%">Monitor Brand</th>
-			<th width="25%">Monitor Model</th>
-			<th width="25%">Monitor Serial</th>
+			<th width='100px'>Monitor Label</th>
+			<th width='100px'>Invoice No.</th>
+			<th width='100px'>Monitor Brand</th>
+			<th width='100px'>Monitor Model</th>
+			<th width='100px'>Monitor Serial</th>
 		</tr>
 	</table>	
 	<div style="overflow:auto;height:600px;">
 	<table border="1" width="750px">
 		<?php 
-			$mouse = $db->selectQuery("monitor","*", "1");			
-			foreach( $mouse AS $c ):
-				echo '<tr >';
-				// echo "<td> </td>";
-				echo "<td width='25.2%'>".$c['monitor_brand']."</td>";
-				echo "<td>".$c['monitor_brand']."</td>";
-				echo "<td>".$c['monitor_model']."</td>";
-				echo "<td>".$c['monitor_serial']."</td>";
+			$monitor = $db->selectQuery("monitor","*", "1");			
+			foreach( $monitor AS $c ):
+				echo '<tr >';			
+				$monitorID = $c['monitor_id'];				
+		
+				$monitorID = $c['monitor_id'];		
+				$where = "assign_monitorid = ".$monitorID;
+				$fields = "COUNT(assign_id) as total";								
+				$details =	$db->selectSingleQueryArray("assignments", $fields , $where);						
+				if($details['total'] > 0)
+					echo "<td width='100px'><a href='monitordetails.php?id=".$monitorID."' >".$c['monitor_label']."</a></td>";
+				else
+					echo "<td width='100px'>".$c['monitor_label']."</td>";				
+				echo "<td width='100px'>".$c['monitor_invoiceno']."</td>";
+				echo "<td width='100px'>".$c['monitor_brand']."</td>";
+				echo "<td width='100px'>".$c['monitor_model']."</td>";
+				echo "<td width='100px'>".$c['monitor_serial']."</td>";
 				echo '</tr>';				
 			endforeach;
 		?>				

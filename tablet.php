@@ -12,23 +12,33 @@ if(!is_login()){
 	<h1>Tablet</h1><hr>
 	<table border="1" width="750px">
 		<tr align="center">
-			<th width="25%">Invoice No.</th>
-			<th width="25%">Tablet Brand</th>
-			<th width="25%">Tablet Model</th>
-			<th width="25%">Tablet Serial</th>
+			<th width='100px'>Tablet Label</th>
+			<th width='100px'>Invoice No.</th>
+			<th width='100px'>Tablet Brand</th>
+			<th width='100px'>Tablet Model</th>
+			<th width='100px'>Tablet Serial</th>			
 		</tr>
 	</table>	
 	<div style="overflow:auto;height:600px;">
 	<table border="1" width="750px">
 		<?php 
-			$mouse = $db->selectQuery("tablet","*", "1");			
-			foreach( $mouse AS $c ):
-				echo '<tr >';
-				// echo "<td> </td>";
-				echo "<td width='25.2%'>".$c['tablet_brand']."</td>";
-				echo "<td>".$c['tablet_brand']."</td>";
-				echo "<td>".$c['tablet_model']."</td>";
-				echo "<td>".$c['tablet_serial']."</td>";
+			$tablet = $db->selectQuery("tablet","*", "1");			
+			foreach( $tablet AS $c ):
+				echo '<tr >';			
+				$tabletID = $c['tablet_id'];				
+		
+				$tabletID = $c['tablet_id'];		
+				$where = "assign_tabletid = ".$tabletID;
+				$fields = "COUNT(assign_id) as total";								
+				$details =	$db->selectSingleQueryArray("assignments", $fields , $where);						
+				if($details['total'] > 0)
+					echo "<td width='100px'><a href='tabletdetails.php?id=".$tabletID."' >".$c['tablet_label']."</a></td>";
+				else
+					echo "<td width='100px'>".$c['tablet_label']."</td>";
+				echo "<td width='100px'>".$c['tablet_invoiceno']."</td>";
+				echo "<td width='100px'>".$c['tablet_model']."</td>";
+				echo "<td width='100px'>".$c['tablet_model']."</td>";
+				echo "<td width='100px'>".$c['tablet_serial']."</td>";
 				echo '</tr>';				
 			endforeach;
 		?>				

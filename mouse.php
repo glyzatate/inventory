@@ -11,7 +11,7 @@ if(!is_login()){
 	?>
 	
 	<a href="addmouse.php" ><input type="submit" value="Add Mouse" /> </a><br/><hr>
-	<h1>Mouse</h1><hr>
+	<h1>Mouse </h1><hr>
 	<table border="1" width="750px">
 		<tr align="center">
 			<th width='100px'>Mouse Label</th>
@@ -22,12 +22,23 @@ if(!is_login()){
 		</tr>
 	</table>	
 	<div style="overflow:auto;height:600px;">
+	
+
 	<table border="1" width="750px">
 		<?php 
 			$mouse = $db->selectQuery("mouse","*", "1");			
 			foreach( $mouse AS $c ):
-				echo '<tr >';				
-				echo "<td width='100px'>".$c['mouse_label']."</td>";
+				echo '<tr >';			
+				$mouseID = $c['mouse_id'];				
+		
+				$mouseID = $c['mouse_id'];		
+				$where = "assign_mouseid = ".$mouseID;
+				$fields = "COUNT(assign_id) as total";								
+				$details =	$db->selectSingleQueryArray("assignments", $fields , $where);						
+				if($details['total'] > 0)
+					echo "<td width='100px'><a href='mousedetails.php?id=".$mouseID."' >".$c['mouse_label']."</a></td>";
+				else
+					echo "<td width='100px'>".$c['mouse_label']."</td>";
 				echo "<td width='100px'>".$c['mouse_invoiceno']."</td>";
 				echo "<td width='100px'>".$c['mouse_brand']."</td>";
 				echo "<td width='100px'>".$c['mouse_model']."</td>";

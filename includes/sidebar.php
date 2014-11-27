@@ -48,6 +48,41 @@
 <li>
 <div style="padding:10px">
 
+
+<table cellspacing="100" border="0">
+	<tr >
+		<td  style="padding:5px"><a href="index.php" class="classname"><img src="img/home.png" style="width:50px; height:50px;" /></a></td>
+		<td  style="padding:5px"><a href="addinventory2.php" class="classname"><img src="img/settings.png" style="width:50px; height:50px;" /></a></td></a></td>
+	</tr>
+	<tr >
+		<td  style="padding:5px"><a href="endorse.php" class="classname"><img src="img/seatplan.png" style="width:50px; height:50px;" /></a></td>
+		<td  style="padding:5px"><a href="keyboard.php" class="classname"><img src="img/plus.png" style="width:50px; height:50px;" /></a></td></a></td>
+	</tr>
+	<tr >
+		<td  style="padding:5px"><a href="mouse.php" class="classname"><img src="img/mouse.png" style="width:50px; height:50px;" /></a></td>
+		<td  style="padding:5px"><a href="keyboard.php" class="classname"><img src="img/keyboard.png" style="width:50px; height:50px;" /></a></td></a></td>
+	</tr>
+	<?php 
+			$items = $db->selectQuery("physical_inventory","DISTINCT (item_name) as item", "1");			
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				echo '<tr >';			
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					echo '<td  style="padding:5px"><a href="detailspage.php?itemName='.$items[$ctr]['item'].'" class="classname">'.$items[$ctr]['item'].'</a></td></a></td>';
+					$ctr = $ctr + 1;
+				}
+				echo '</tr>';				
+				$counter = $counter + 2;
+			}
+		?>				
+		
+</table>
+
+
+<!--
 <table cellspacing="100" border="0">
 	<tr >
 		<td  style="padding:5px"><a href="index.php" class="classname"><img src="img/home.png" style="width:50px; height:50px;" /></a></td>
@@ -55,10 +90,14 @@
 	</tr>
 	<tr>
 		<td style="padding:5px"><a href="addinventory.php" class="classname"><img src="img/compset.png" style="width:50px; height:50px;" /></a></td></a></td>
-		<td style="padding:5px"><a href="assignment.php" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
+		<td style="padding:5px"><a href="perassignment.php" class="classname"><img title="Add per Table" src="img/plus.png" style="width:50px; height:50px;" /></a></td></a></td>		
 	</tr>
-	<tr>
-		<td style="padding:5px"><a href="#" class="classname"><img src="img/laptop.png" style="width:50px; height:50px;" /></a></td></a></td>		
+	<tr>		
+		<td style="padding:5px"><a href="assignment2.php" class="classname"><img src="img/history.png" style="width:50px; height:50px;" /></a></td></a></td>		
+		<td style="padding:5px"><a href="listofemployee.php" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
+	</tr>
+	<tr>	
+		<td style="padding:5px"><a href="#" class="classname"><img title="Add by Invoice" src="img/laptop.png" style="width:50px; height:50px;" /></a></td></a></td>		
 		<td style="padding:5px"><a href="#" class="classname"><img src="img/mac.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	<tr >
@@ -82,13 +121,13 @@
 		<td style="padding:5px"><a href="ups.php" class="classname"><img src="img/ups.png" style="width:50px; height:50px;" /></a></td></a></td>
 		<td style="padding:5px"><a href="printer.php" class="classname"><img src="img/printer.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
-	<tr>
-		<td style="padding:5px"></td>
-		<td style="padding:5px"><a href="assignment2.php" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
+	<tr>		
+		<td style="padding:5px"><a href="assignment.php" class="classname"><img src="img/seatplan.png" style="width:50px; height:50px;" /></a></td></a></td>		
+		<td style="padding:5px"><a href="listofemployee.php" class="classname"><img src="img/staff.png" style="width:50px; height:50px;" /></a></td></a></td>		
 	</tr>
 </table>
 
-
+-->
 </div>
 </li>
 </ul>

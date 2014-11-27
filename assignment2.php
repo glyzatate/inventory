@@ -70,13 +70,13 @@ if(!is_login()){
 		</tr>
 
 		<?php 
-			$addON = "LEFT JOIN users ON  userID= assign_userid LEFT JOIN avr ON  avr_id = assign_avrid LEFT  JOIN ups ON  ups_id = assign_upsid LEFT  JOIN monitor ON  monitor_id = assign_monitorid  LEFT  JOIN cpu ON  cpu_id = assign_cpuid LEFT  JOIN keyboard ON  keyboard_id = assign_keyboardid LEFT  JOIN mouse ON  mouse_id = assign_mouseid LEFT  JOIN hardphone ON  hardphone_id = assign_hardphoneid LEFT  JOIN headset ON  headset_id = assign_headsetid  LEFT  JOIN printer ON  printer_id = assign_printerid LEFT  JOIN tablet ON  tablet_id = assign_tabletid ";
-			$fields = "assign_userid,lastName,firstName,table_no,monitor_label,cpu_label, keyboard_label, mouse_label,avr_label, hardphone_label,headset_label, printer_brand,tablet_label,assign_chair";
-			$mouse = $db->selectQuery("assignments",$fields, "1 ORDER BY lastName asc",$addON);			
+			$addON = "LEFT JOIN staff ON  uid = assign_userid LEFT JOIN avr ON  avr_id = assign_avrid LEFT  JOIN ups ON  ups_id = assign_upsid LEFT  JOIN monitor ON  monitor_id = assign_monitorid  LEFT  JOIN cpu ON  cpu_id = assign_cpuid LEFT  JOIN keyboard ON  keyboard_id = assign_keyboardid LEFT  JOIN mouse ON  mouse_id = assign_mouseid LEFT  JOIN hardphone ON  hardphone_id = assign_hardphoneid LEFT  JOIN headset ON  headset_id = assign_headsetid  LEFT  JOIN printer ON  printer_id = assign_printerid LEFT  JOIN tablet ON  tablet_id = assign_tabletid ";
+			$fields = "assign_userid,sLast,sFirst,table_no,monitor_label,cpu_label, keyboard_label, mouse_label,avr_label, hardphone_label,headset_label, printer_brand,tablet_label,assign_chair";
+			$mouse = $db->selectQuery("assignments",$fields, "1 ORDER BY table_no asc",$addON);			
 			foreach( $mouse AS $c ):
 				echo '<tr >';				
-				echo "<td ><a href='employeehistory.php?userid=".$c['assign_userid']."'>".$c['lastName']."</a></td>";
-				echo "<td width='100px'>".$c['firstName']."</td>";
+				echo "<td ><a href='employeehistory.php?userid=".$c['assign_userid']."'>".$c['sLast']."</a></td>";
+				echo "<td width='100px'>".$c['sFirst']."</td>";
 				echo "<td width='100px'>".$c['table_no']."</td>";
 				echo "<td width='100px'>".$c['monitor_label']."</td>";
 				echo "<td width='100px'>".$c['cpu_label']."</td>";
