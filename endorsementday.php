@@ -118,6 +118,7 @@ if(!is_login()){
 					<?php
 						$tablename = $db->selectSingleQuery("workstation", "label" , "workstation_id=".$_GET['itemName'], $add_sql="");
 					?>
+					- Day Shift
 					<input value="<?php echo $tablename;?>" class="selectcss" style="width:100px;" readonly />
 				</td>
 			</tr>		
@@ -132,7 +133,7 @@ if(!is_login()){
 											<label>".$items[$counter]['item']."</label>
 										</td>";												
 									// $test = $db->selectQuery("physical_inventory","*","item_name like '%".$items[$counter]['item']."%' ");									
-									$test = $db->selectQuery("physical_inventory LEFT JOIN assigns on ps_id = inventory_number","*", "inventory_number not IN(Select assigns_id from `assigns` where staff_idN IS NULL ) AND item_name like '%".$items[$counter]['item']."%'  ");									
+									$test = $db->selectQuery("physical_inventory LEFT JOIN assigns on ps_id = inventory_number","*", "inventory_number  NOT IN(Select ps_id from `assigns` where staff_id IS NOT  NULL ) AND item_name like '%".$items[$counter]['item']."%'  ");									
 									// print_r($test);
 									// echo "physical_inventory LEFT JOIN assigns on ps_id = inventory_number","*", "inventory_number not IN(Select assigns_id from `assigns` where staff_id IS NULL AND staff_idN IS NULL  ) AND item_name like '%".$items[$counter]['item']."%'   ";
 								echo "<td>";
@@ -161,10 +162,9 @@ if(!is_login()){
 <?php
 $table = "assigns INNER JOIN physical_inventory ON inventory_number = ps_id";
 $field ="*";
-$where = "ws_id =".$_GET['itemName'];
+$where = "ws_id =".$_GET['itemName'] ;
 $assignedItems = $db->selectQuery($table, $field, $where, $add_sql="");
-// print_r($assignedItems); 
-// concat(sFirst,' ',sLast) as name
+// print_r($assignedItems); concat(sFirst,' ',sLast) as name
 $sizeofassign  = count($assignedItems);
 $item_array = "";
 if($sizeofassign > 0){
@@ -175,7 +175,7 @@ $getStafflist = $db->selectQuery("assigns", "staff_id, staff_idN", "ws_id =".$_G
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="active"><a href="#">Assigned Item/s</a></li>
 		<li role="presentation"><a href="#" style="padding:5px 2px; 1px 2px;"><button type='button' class="btn btn-info dropdown-toggle"  id='opener' style="width:122px;">Edit</button></a></li>
-		<!--<li role="presentation"><a href="#" style="padding:5px 2px; 1px 2px;"><button type='button' class="btn btn-info dropdown-toggle"  id='editNightButton' style="width:122px;">Edit</button></a></li>-->
+		<li role="presentation"><a href="#" style="padding:5px 2px; 1px 2px;"><button type='button' class="btn btn-info dropdown-toggle"  id='editNightButton' style="width:122px;">Edit- Night</button></a></li>
 		<li role="presentation"><a href="#" style="padding:5px 2px; 1px 2px;"><button type='button' class="btn btn-info dropdown-toggle" id='assignStaffbutton'>Assign To Staff</button></a></li>
 		<li role="presentation"><a href="#" style="padding:5px 2px; 1px 2px;"><button type='button' class="btn btn-info dropdown-toggle"  id='transferbutton' style="width:122px;">Transfer</button></a></li>
 		<li role="presentation"><a href="#" style="padding:5px 2px; 1px 2px;"><button type='button' class="btn btn-info dropdown-toggle" id='historybutton' style="width:122px;">History</button></a></li>
@@ -184,29 +184,22 @@ $getStafflist = $db->selectQuery("assigns", "staff_id, staff_idN", "ws_id =".$_G
 <?php	
 	$tableLabel = $db->selectSingleQuery("workstation", "label" , "workstation_id=".$_GET['itemName'], $add_sql="");
 	echo "Table # : ".$tableLabel;
-	echo "<div style='border:0px solid red; position:absolute; float:right''>";
+	echo "<div style='border:0px solid red; position:absolute; '>";
 	$staffAssign = $db->selectSingleQueryArray("assigns Left JOIN staff ON uid  = staff_id", "CONCAT(sFirst,' ', sLast) AS name " , "ws_id=".$_GET['itemName'], $add_sql="");
-	if(!isset($staffAssign['name'])) $staffname = "Not Yet Assign" ; else $staffname = $staffAssign['name'] ;
-	
-	$staffAssignNight = $db->selectSingleQueryArray("assigns Left JOIN staff ON uid  = staff_idN", "CONCAT(sFirst,' ', sLast) AS name " , "ws_id=".$_GET['itemName'], $add_sql="");
-	if(!isset($staffAssignNight['name'])) $staffnameNight = "Not Yet Assign" ; else $staffnameNight = $staffAssignNight['name'] ;
-    echo "<div>";
-		echo "Day Shift Staff  : <b>".$staffname."</b><br/>";
-		echo "Night Shift Staff  : <b>".$staffnameNight."</b><br/>";
-	echo "</div>";
+	echo "Assigned To : <b>".$staffAssign['name']."</b>";
 	echo '<div class="table-responsive">';
 	echo "<div align='right' style='width:400px;'>";
 	echo '<table border="0" class="table table-hover" style="width:400px;">';
 	echo "<tr><th>Item</th><th>Label</th></tr>";
 	foreach($assignedItems as $items) {
-			echo "<tr><td>".$items['item_name'] ."</td><td>".$items['item_name']."- ".$items['inventory_number']."</td></tr>";
+			echo "<tr><td>".$items['item_name'] ."</td><td>".$items['item_name'] ." - ".$items['inventory_number']."</td></tr>";
 	}
 	echo "</table>";
 	echo "</div>";
 	echo "</div>";
 // echo $item_array;
 	### NIGHT SHIFT
-	/* echo "<div style='border:0px solid red;  position:absolute; float:right'>";
+	echo "<div style='border:0px solid red; position:absolute; float: left;'>";
 	echo "<b>Night Shift </b><br/><br/>";
 	$staffAssign = $db->selectSingleQueryArray("assigns Left JOIN staff ON uid  = staff_idN", "CONCAT(sFirst,' ', sLast) AS name " , "ws_id=".$_GET['itemName'], $add_sql="");
 	echo '<div class="table-responsive">';
@@ -219,7 +212,7 @@ $getStafflist = $db->selectQuery("assigns", "staff_id, staff_idN", "ws_id =".$_G
 	}
 	echo "</table>";
 	echo "</div>";
-	echo "</div>"; */
+	echo "</div>";
 }
 else { 
 	echo "

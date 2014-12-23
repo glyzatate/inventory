@@ -47,7 +47,7 @@ if(!is_login()){
 			</tr>	
 			<tr>
 				<td>Invoice Date</td>
-				<td><input type="text" name="invoice_date" id="invoice_date" style=" width: 310px;"/></td>
+				<td><input type="date" name="invoice_date" id="invoice_date" style=" width: 310px;"/></td>
 			</tr>		
 			<tr>
 				<td>Supplier</td>

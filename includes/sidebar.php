@@ -49,19 +49,19 @@
 <div style="padding:10px">
 
 
-<table cellspacing="100" border="0">
+<table cellspacing="100" border="1">
 	<tr >
 		<td  style="padding:5px"><a href="index.php" class="classname"><img src="img/home.png" style="width:50px; height:50px;" /></a></td>
 		<td  style="padding:5px"><a href="addinventory2.php" class="classname"><img src="img/settings.png" style="width:50px; height:50px;" /></a></td></a></td>
 	</tr>
 	<tr >
 		<td  style="padding:5px"><a href="endorse.php" class="classname"><img src="img/seatplan.png" style="width:50px; height:50px;" /></a></td>
-		<td  style="padding:5px"><a href="keyboard.php" class="classname"><img src="img/plus.png" style="width:50px; height:50px;" /></a></td></a></td>
+		<!--<td  style="padding:5px"><a href="keyboard.php" class="classname"><img src="img/plus.png" style="width:50px; height:50px;" /></a></td></a></td>-->
 	</tr>
-	<tr >
+	<!--<tr >
 		<td  style="padding:5px"><a href="mouse.php" class="classname"><img src="img/mouse.png" style="width:50px; height:50px;" /></a></td>
 		<td  style="padding:5px"><a href="keyboard.php" class="classname"><img src="img/keyboard.png" style="width:50px; height:50px;" /></a></td></a></td>
-	</tr>
+	</tr>-->
 	<?php 
 			$items = $db->selectQuery("physical_inventory","DISTINCT (item_name) as item", "1");			
 			$size = count($items);
@@ -71,7 +71,8 @@
 				$ctr = $counter ;
 				$two = $counter + 2;
 				while($ctr < $two) {
-					echo '<td  style="padding:5px"><a href="detailspage.php?itemName='.$items[$ctr]['item'].'" class="classname">'.$items[$ctr]['item'].'</a></td></a></td>';
+					$name = str_replace(" ", "",$items[$ctr]['item']);
+					echo '<td  style="padding:5px"><a href="detailspage.php?itemName='.$items[$ctr]['item'].'" class="classname">'.$name.'</a></td></a></td>';
 					$ctr = $ctr + 1;
 				}
 				echo '</tr>';				

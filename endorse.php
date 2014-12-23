@@ -53,15 +53,135 @@ if(!is_login()){
 }.tablename:active {
 	position:relative;
 	top:1px;
-}</style>	
+}
+
+
+#submenu ul {
+	display:none;
+	 list-style: none;
+	 border:0px solid red;
+	 position:absolute;		
+	
+}
+
+#submenu li {
+	 border:0px solid red;	
+	 width:100px;
+	 list-style: none;
+	 display: inline-block;
+	 
+}
+
+#submenu li:hover > ul {
+	border:0px solid red;
+	display: inline-block;
+	position:absolute;  	
+    // background-color:#000000;
+	margin-left:90px; 
+	margin-top:-40px;
+	
+	 background: #dfdfdf;
+  background-image: -webkit-linear-gradient(top, #dfdfdf, #dfdfdf);
+  background-image: -moz-linear-gradient(top, #dfdfdf, #dfdfdf);
+  background-image: -ms-linear-gradient(top, #dfdfdf, #dfdfdf);
+  background-image: -o-linear-gradient(top, #dfdfdf, #dfdfdf);
+  background-image: linear-gradient(to bottom, #dfdfdf, #dfdfdf);
+  -webkit-border-radius: 3;
+  -moz-border-radius: 3;
+  border-radius: 3px;
+  font-family: Arial;
+  color: #777777;
+  // font-size: 20px;
+  // padding: 6px 12px 6px 12px;
+  border: solid #dcdcdc 2px;
+  text-decoration: none;
+	
+}
+
+#submenu li ul li {	
+	padding: 5px 0px 5px 5px;
+	// border:1px solid red;
+	position:relative;	
+	width:200px;
+	margin-left:-40px;
+	display: block;
+	text-decoration: none;
+
+}
+
+#submenu li ul li a{		
+	text-decoration: none;
+
+}
+
+#submenu li ul li:hover {	
+	background: #ededed;
+	background-image: -webkit-linear-gradient(top, #ededed, #ededed);
+	background-image: -moz-linear-gradient(top, #ededed, #ededed);
+	background-image: -ms-linear-gradient(top, #ededed, #ededed);
+	background-image: -o-linear-gradient(top, #ededed, #ededed);
+	background-image: linear-gradient(to bottom, #ededed, #ededed);
+	text-decoration: none;
+}
+
+
+
+</style>	
 <script type="text/javascript">
  //for colorbox
- 
  $(document).ready(function(){
   $("#itroomid").colorbox({iframe:true, width:"40%", height:"55%"});
   //$(".note").colorbox({iframe:true, width:"60%", height:"85%"});
  });
-</script> 
+</script>
+
+<ul id="submenu">
+	 <li class="active"><a href="#">Home</a></li>
+	 <li><a href="#">Products</a>
+	  <ul>
+	   <li><a href="#">Products Sub Menu 1</a></li>
+	   <li><a href="#">Products Sub Menu 2</a></li>
+	   <li><a href="#">Products Sub Menu 3</a></li>
+	   <li><a href="#">Products Sub Menu 4</a></li>
+	  </ul>
+	 </li>
+	 <li><a href="#">Services</a>
+	  <ul>
+	   <li><a href="#">Services Sub Menu 1</a></li>
+	   <li><a href="#">Services Sub Menu 2</a></li>
+	   <li><a href="#">Services Sub Menu 3</a></li>
+	   <li><a href="#">Services Sub Menu 4</a></li>
+	  </ul>
+	 </li>
+	 <li><a href="#">About</a></li>
+	 <li><a href="#">Contact Us</a></li>
+</ul>
+ 
+	<!--<ul id="submenu"> 
+	<?php 
+		$addON = "";
+		$where = "location = 'Admin Room'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+						  
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> -->
+		
+ 
 	<h1></h1><hr>	
 	<table border="0" width="750px">
 		<tr align="center">
@@ -78,7 +198,7 @@ if(!is_login()){
 	<div>
 			<h2>Admin Room</h2>   
 	</div>
-	<table border="0" >		
+	<!--<table border="0" >		
 		<?php 
 		$addON = "";
 		$where = "location = 'Admin Room'";
@@ -99,7 +219,36 @@ if(!is_login()){
 				$counter = $counter + 2;
 			}
 		?>															
-	</table>
+	</table>	
+	  <ul>
+		   <li><a href="endorsementday.php?itemName='.$items[$ctr]['workstation_id'].'">Day Shift</a></li>
+		   <li><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'">Night Shift</a></li>
+	  </ul>		
+	-->
+	<ul id="submenu">
+	<?php 
+		$addON = "";
+		$where = "location = 'Admin Room'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+										
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> 
+	
 	
 	<table><br/>
 	 <a href="#topmenu" >Back Top Menu</a>
@@ -108,7 +257,7 @@ if(!is_login()){
 	<div>
 			<h2>Call Room</h2>
 	</div>
-	<table border="0" >		
+	<!--<table border="0" >		
 		<?php 
 		$addON = "";
 		$where = "location = 'Call Room'";
@@ -130,13 +279,37 @@ if(!is_login()){
 			}
 		?>															
 	</table>
+	-->
+	<ul id="submenu">
+	<?php 
+		$addON = "";
+		$where = "location = 'Call Room'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+										
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> 
 	
 	<br/>
 	 <a href="#topmenu" >Back Top Menu</a> <br/>
 	 
 	<div id="itroom"></div><br/><br/>
 	<div id="itroom"> <h2>IT Room</h2> </div>
-	<table border="0" >		
+	<!--<table border="0" >		
 		<?php 
 		$addON = "";
 		$where = "location = 'IT Room'";
@@ -157,13 +330,36 @@ if(!is_login()){
 				$counter = $counter + 2;
 			}
 		?>															
-	</table>
+	</table>-->
+	<ul id="submenu">
+	<?php 
+		$addON = "";
+		$where = "location = 'IT Room'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+									
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> 
 	<br/>
 	 <a href="#topmenu" >Back Top Menu</a>
 	 
 	<div  name="productionarea" id="productionarea"></div><br/><br/>
 	<div><h2>Production Area</h2></div>
-	<table border="0" >		
+	<!--<table border="0" >		
 		<?php 
 		$addON = "";
 		$where = "location = 'Production Area'";
@@ -184,7 +380,30 @@ if(!is_login()){
 				$counter = $counter + 2;
 			}
 		?>															
-	</table>
+	</table>-->
+	<ul id="submenu">
+	<?php 
+		$addON = "";
+		$where = "location = 'Production Area'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+										
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> 
 	<br/>
 	 <a href="#topmenu" >Back Top Menu</a>
 	 
@@ -192,7 +411,7 @@ if(!is_login()){
 	<div>
 			<h2>Wall</h2>
 	</div>
-	<table border="0" >
+	<!--<table border="0" >
 		<tr >
 			<td>
 				<table border="0" >
@@ -219,7 +438,84 @@ if(!is_login()){
 				</table>	
 			</td>
 		</tr>
+	<table>-->
+	<ul id="submenu">
+	<?php 
+		$addON = "";
+		$where = "location = 'Wall";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+						 				
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> 
 	<table><br/>
+	 <a href="#topmenu" >Back Top Menu</a>
+	<div id="callroom"></div>
+	<br/><br/>
+	<div>
+			<h2>Voice Room</h2>
+	</div>
+	<!--<table border="0" >		
+		<?php 
+		$addON = "";
+		$where = "location = 'Call Room'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				echo '<tr >';			
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<td  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation'].'" class="classname">'.$items[$ctr]['label'].'</a></td></a></td>';
+					$ctr = $ctr + 1;					
+				}
+				echo '</tr>';				
+				$counter = $counter + 2;
+			}
+		?>															
+	</table>-->
+	<ul id="submenu">
+	<?php 
+		$addON = "";
+		$where = "location = 'Voice Room'";
+		$fields = "*";
+		$items = $db->selectQuery("workstation",$fields, $where,$addON);				
+			$size = count($items);
+			$counter = 0;						
+			while($counter < $size ) {
+				$ctr = $counter ;
+				$two = $counter + 2;
+				while($ctr < $two) {
+					if(isset($items[$ctr]['label'])) 
+						echo '<li  style="padding:5px"><a href="endorsement.php?itemName='.$items[$ctr]['workstation_id'].'" class="classname">'.$items[$ctr]['label'].'</a>
+						 				
+						</li>';
+					$ctr = $ctr + 1;					
+				}
+				
+				$counter = $counter + 2;
+			}
+		?>							
+	</ul> 
+	
+	<br/>
 	 <a href="#topmenu" >Back Top Menu</a>
 	
 	

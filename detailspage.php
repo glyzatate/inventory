@@ -16,22 +16,26 @@ if(!is_login()){
 	
 	<table border="1" >
 		<tr align="center">
-			<th width='200px'>Last Name</th>
-			<th width='200px'>First Name</th>	
+			<th width='200px'>ITEM NAME</th>
+			<th width='200px'>LABEL</th>	
+			<th width='200px'>ASSIGN TO DAYSHIFT</th>	
+			<th width='200px'>ASSIGN TO NIGHT SHIFT</th>	
 		</tr>
 
 		<?php 
 			echo $_POST['itemName'];
 			$fields = "*";
 			$where = "item_name like '%".strtolower($param)."%'  ";
-			$itemdetails = $db->selectQuery("physical_inventory",$fields,$where);
-
+			$itemdetails = $db->selectQuery("physical_inventory",$fields,$where);			
+			
 			foreach( $itemdetails AS $c ):
 				echo '<tr >';				
-					echo "<td width='100px'><a href='peritemdetails.php?id=".$c['inventory_number']."' >".$c['item_name']."</td>";				
-					echo "<td width='100px'>".$c['label']."</td>";
-					// echo "<td width='100px'>".$c['monitor_brand']."</td>";
-					// echo "<td width='100px'>".$c['monitor_model']."</td>";
+					echo "<td width='100px'><a href='peritemdetails.php?id=".$c['inventory_number']."' >".$c['item_name']."</td>";									
+					echo "<td width='100px'>".$c['item_name']."- ".$c['inventory_number']."</td>";
+					$staffAssign = $db->selectSingleQueryArray("assigns Left JOIN staff ON uid  = staff_id", "CONCAT(sFirst,' ', sLast) AS name " , "ps_id=".$c['inventory_number'], $add_sql="");
+					echo "<td width='100px'>".$staffAssign['name']."</td>";
+					$staffAssign = $db->selectSingleQueryArray("assigns Left JOIN staff ON uid  = staff_idN", "CONCAT(sFirst,' ', sLast) AS nameN " , "ps_id=".$c['inventory_number'], $add_sql="");
+					echo "<td width='100px'>".$staffAssign['nameN']."</td>";
 					// echo "<td width='100px'>".$c['monitor_serial']."</td>";
 				echo '</tr>';		
 				
